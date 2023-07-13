@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import CarItem from "./car-item/CarItem";
 import CreateCarForm from "./create-car-form/CreateCarForm.jsx";
+import axios from "axios"
 function Home() {
   const [cars, setCars] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("http://localhost:3000/cars");
-      const data = await response.json();
-      setCars(data);
+      const response = await axios("http://localhost:3000/cars");
+   
+      setCars(response.data);
     };
     fetchData()
   }, []);
