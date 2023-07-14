@@ -7,10 +7,6 @@ import VideoPlayer from "./Player";
 function Home() {
   const [cars, setCars] = useState([]);
 
-  const clearCars = useCallback(() => () => {
-    setCars([]);
-  },[]);
-
   useEffect(() => {
     const fetchData = async () => {
       const data = await CarService.getAll();

@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import styles from "../Home.module.css";
+import Price from "./Price";
+import { useState } from "react";
 function CarItem({ car }) {
+  const [count,setCount] = useState(0)
   return (
     <div key={car.id} className={styles.item}>
       <div
@@ -9,13 +12,11 @@ function CarItem({ car }) {
       />
       <div className={styles.info}>
         <h2>{car.name}</h2>
-        <p>
-          {new Intl.NumberFormat("ru-RU", {
-            style: "currency",
-            currency: "USD",
-          }).format(car.price)}
-        </p>
-        <Link className="btn" to={`/car/${car.id}`}>Read more</Link>
+        <button onClick={() => setCount(prev => prev+1)}>Click</button>
+        <Price price={car.price}/>
+        <Link className="btn" to={`/car/${car.id}`}>
+          Read more
+        </Link>
       </div>
     </div>
   );
