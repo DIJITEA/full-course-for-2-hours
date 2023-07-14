@@ -1,45 +1,31 @@
 import styles from "./CreateCarForm.module.css";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 const ClearData = {
-    name: "",
-    price: "",
-    image: "",
-}
+  name: "",
+  price: "",
+  image: "",
+};
 
 const CreateCarForm = ({ setCars }) => {
-  const [data, setData] = useState({
-    name: "",
-    price: "",
-    image: "",
+  const [data, setData] = useState({ ClearData });
+  const { register, reset, handleSubmit } = useForm({
+    mode: "onChange",
   });
 
-  const createCar = (e) => {
-    e.preventDefault();
+  const createCar = data => {
+
     setCars((prev) => [...prev, { id: prev.length + 1, ...data }]);
-    setData(ClearData)
+    setData(ClearData);
   };
 
   return (
-    <form className={styles.form}>
-      <input
-        placeholder="Name"
-        onChange={(e) => setData(prev => ({...prev, name:e.target.value}))}
-        value={data.name}
-      />
-      <input
-        placeholder="Price"
-        onChange={(e) => setData(prev => ({...prev, price:e.target.value}))}
-        value={data.price}
-      />
-      <input
-        placeholder="Image"
-        onChange={(e) => setData(prev => ({...prev, image:e.target.value}))}
-        value={data.image}
-      />
-      <button className="btn" onClick={(e) => createCar(e)}>
-        Create
-      </button>
+    <form className={styles.form} onSubmit={handleSubmit(createCar)}>
+      <input placeholder="Name" {...register('name',{required:true})} />
+      <input placeholder="Price" {...register('price',{required:true})} />
+      <input placeholder="Image" {...register('image',{required:true})} />
+      <button className="btn">Create</button>
     </form>
   );
 };
