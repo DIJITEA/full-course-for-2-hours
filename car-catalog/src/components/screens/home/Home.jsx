@@ -1,21 +1,27 @@
 import { useEffect, useState } from "react";
 import CarItem from "./car-item/CarItem";
 import CreateCarForm from "./create-car-form/CreateCarForm.jsx";
-import axios from "axios"
+import { CarService } from "../../../services/car.service";
+import { useNavigate } from "react-router-dom";
+import VideoPlayer from "./Player";
 function Home() {
   const [cars, setCars] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios("http://localhost:3000/cars");
+      const data = await CarService.getAll()
    
-      setCars(response.data);
+      setCars(data);
     };
     fetchData()
   }, []);
 
+  const nav = useNavigate()
+
   return (
     <div>
       <h1>Car catalog</h1>
+      <VideoPlayer/>
+      <button onClick={() => nav('/car/1')}>Go</button>
       <CreateCarForm setCars={setCars} />
       <div>
         {cars.length ? (
