@@ -8,7 +8,7 @@ const ClearData = {
   image: "",
 };
 
-const CreateCarForm = ({ setCars }) => {
+const CreateCarForm = () => {
   const [data, setData] = useState({ ClearData });
   const { register, reset, handleSubmit } = useForm({
     mode: "onChange",
@@ -16,8 +16,8 @@ const CreateCarForm = ({ setCars }) => {
 
   const createCar = data => {
 
-    setCars((prev) => [...prev, { id: prev.length + 1, ...data }]);
-    setData(ClearData);
+    // setCars((prev) => [...prev, { id: prev.length + 1, ...data }]);
+    // setData(ClearData);
   };
 
   return (

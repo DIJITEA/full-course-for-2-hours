@@ -5,21 +5,15 @@ import { CarService } from "../../../services/car.service";
 import { useNavigate } from "react-router-dom";
 import VideoPlayer from "./Player";
 import { AuthContext } from "../../../providers/AuthProvider";
+import { useQuery } from "@tanstack/react-query";
 function Home() {
-  const [cars, setCars] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await CarService.getAll();
-
-      setCars(data);
-    };
-    fetchData();
-  }, []);
+  const {data, isLoading} = useQuery(['cars'],() => CarService.getAll())
 
   const nav = useNavigate();
 
   const { user, setUser } = useContext(AuthContext);
+
+  if(isLoading) return <p>Loading...</p>
 
   return (
     <div>
@@ -34,10 +28,10 @@ function Home() {
       )}
       <VideoPlayer />
       <button onClick={() => nav("/car/1")}>Go</button>
-      <CreateCarForm setCars={setCars} />
+      <CreateCarForm />
       <div>
-        {cars.length ? (
-          cars.map((car) => <CarItem key={car.id} car={car} />)
+        {data.length ? (
+          data.map((car) => <CarItem key={car.id} car={car} />)
         ) : (
           <p>There are no cars</p>
         )}
