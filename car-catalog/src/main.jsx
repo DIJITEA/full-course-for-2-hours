@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./assets/styles/global.css";
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
 import Home from "./components/screens/home/Home.jsx";
-import Router from "./components/ui/Router";
+import Router from "./components/Router";
 import AuthProvider from "./providers/AuthProvider";
 
 const queryClient = new QueryClient

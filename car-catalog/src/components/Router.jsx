@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes ,Route } from "react-router-dom";
-import CarDetail from '../screens/car-detail/CarDetail'
-import Home from "../screens/home/Home";
+import CarDetail from './screens/car-detail/CarDetail'
+import Home from "./screens/home/Home";
 const Router = () => {
   return (
     <BrowserRouter>

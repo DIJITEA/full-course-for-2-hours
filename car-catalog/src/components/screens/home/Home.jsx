@@ -6,36 +6,23 @@ import { useNavigate } from "react-router-dom";
 import VideoPlayer from "./Player";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
+import Header from "../../ui/Header";
+import Catalog from "../../ui/Catalog";
 function Home() {
-  const {data, isLoading} = useQuery(['cars'],() => CarService.getAll())
+  const { data, isLoading } = useQuery(["cars"], () => CarService.getAll());
 
   const nav = useNavigate();
 
-  const { user, setUser } = useContext(AuthContext);
-
-  if(isLoading) return <p>Loading...</p>
+  if (isLoading) return <p>Loading...</p>;
 
   return (
     <div>
       <h1>Car catalog</h1>
-      {user ? (
-        <>
-          <h2>Welcome, {user.name}</h2>
-          <button onClick={() => setUser(null)}>Logout</button>
-        </>
-      ) : (
-        <button onClick={() => setUser({ name: "Oleg" })}>Login</button>
-      )}
+      <Header />
       <VideoPlayer />
       <button onClick={() => nav("/car/1")}>Go</button>
       <CreateCarForm />
-      <div>
-        {data.length ? (
-          data.map((car) => <CarItem key={car.id} car={car} />)
-        ) : (
-          <p>There are no cars</p>
-        )}
-      </div>
+      <Catalog data={data} />
     </div>
   );
 }
