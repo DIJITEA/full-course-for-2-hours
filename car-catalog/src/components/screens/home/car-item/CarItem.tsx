@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 import styles from "../Home.module.css";
 import Price from "./Price";
 import { useState } from "react";
-function CarItem({ car }) {
+import { ICar } from "../../../../types/car.interface";
+function CarItem({ car }: {car:ICar}) {
   const [count,setCount] = useState(0)
   return (
     <div key={car.id} className={styles.item}>
